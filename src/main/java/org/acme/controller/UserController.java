@@ -1,10 +1,7 @@
 package org.acme.controller;
 
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.controller.entity.UserEntity;
@@ -19,6 +16,12 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GET
+    public Response findAll(@QueryParam("page") @DefaultValue("0") Integer page,
+                            @QueryParam("pageSize") @DefaultValue("10") Integer pageSize) {
+        return Response.ok(userService.findAll(page, pageSize)).build();
     }
 
     @POST
