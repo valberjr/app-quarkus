@@ -38,10 +38,18 @@ public class UserController {
         return Response.ok(userService.createUser(userEntity)).build();
     }
 
-    @PUT()
+    @PUT
     @Path("/{id}")
     @Transactional
     public Response updateUser(@PathParam("id") UUID userId, UserEntity userEntity) {
         return Response.ok(userService.updateUser(userId, userEntity)).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    public Response deleteUser(@PathParam("id") UUID userId) {
+        userService.deleteById(userId);
+        return Response.noContent().build();
     }
 }
