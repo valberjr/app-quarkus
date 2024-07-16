@@ -37,4 +37,11 @@ public class UserController {
     public Response createUser(UserEntity userEntity) {
         return Response.ok(userService.createUser(userEntity)).build();
     }
+
+    @PUT()
+    @Path("/{id}")
+    @Transactional
+    public Response updateUser(@PathParam("id") UUID userId, UserEntity userEntity) {
+        return Response.ok(userService.updateUser(userId, userEntity)).build();
+    }
 }

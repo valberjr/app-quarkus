@@ -1,6 +1,5 @@
 package org.acme.service;
 
-import io.vertx.ext.auth.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.controller.entity.UserEntity;
 import org.acme.exception.UserNotFoundException;
@@ -26,5 +25,12 @@ public class UserService {
         return (UserEntity) UserEntity
                 .findByIdOptional(userId)
                 .orElseThrow(UserNotFoundException::new);
+    }
+
+    public UserEntity updateUser(UUID userId, UserEntity userEntity) {
+        var user = findById(userId);
+        user.username = userEntity.username;
+        UserEntity.persist(user);
+        return user;
     }
 }
