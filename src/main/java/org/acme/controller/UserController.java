@@ -7,6 +7,8 @@ import jakarta.ws.rs.core.Response;
 import org.acme.controller.entity.UserEntity;
 import org.acme.service.UserService;
 
+import java.util.UUID;
+
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,6 +24,12 @@ public class UserController {
     public Response findAll(@QueryParam("page") @DefaultValue("0") Integer page,
                             @QueryParam("pageSize") @DefaultValue("10") Integer pageSize) {
         return Response.ok(userService.findAll(page, pageSize)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findAll(@PathParam("id") UUID userId) {
+        return Response.ok(userService.findById(userId)).build();
     }
 
     @POST
